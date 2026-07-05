@@ -1,0 +1,8 @@
+id,name,parentId
+23ea44bc-c5eb-4dbb-8943-03dc480a93df,Electronics,
+7830dd34-5b8b-4b31-bf29-7e4d4245ac38,Furniture,
+68c3f0be-73eb-4f5c-947c-6a7b7c95deb2,Home Appliances,
+7dba5d2b-b15f-495e-a7c2-582969ee64d1,Mobiles,
+3dff7522-e825-4c70-a820-1f72ac09f801,Fibre&Iron Products,
+153dcab2-b20a-425c-9383-5f8125d5baf1,Gift item,
+3e3320ba-8abd-4d40-9115-c21685619f47,Sofas,7830dd34-5b8b-4b31-bf29-7e4d4245ac38

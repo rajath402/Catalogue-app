@@ -1,0 +1,8 @@
+id,name,type,filterable,system
+3c0badd8-214d-4734-8498-26b992921d8a,Brand,text,,brand
+5f851311-bffc-4745-a039-e0997f70b8c6,Price,number,,price
+f16f9685-8f19-4efb-97fb-d39791f2bd52,Color,text,,
+ae6d6073-4642-4150-bd62-0c0eb171b34a,Photos,image,,photos
+211b8caf-6a9f-48b8-81c6-b3bf3f8c89cb,Fabric,text,true,
+3e5510df-a3c3-4259-ab43-d8b2b2e1be55,Warranty (Years),number,true,
+6c5c0bef-1df4-438b-9ccf-23c02590ba4d,Show Price,boolean,false,showPrice
