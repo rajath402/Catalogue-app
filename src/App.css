@@ -1,0 +1,1843 @@
+.app {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+  position: relative;
+}
+
+.app-header {
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.app-logo {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.app-header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.app-header-meta {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.app-loading {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.spinner-lg {
+  width: 34px;
+  height: 34px;
+  border-width: 3px;
+  border-color: rgba(79, 70, 229, 0.2);
+  border-top-color: var(--primary);
+}
+
+h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* ---------- top loading bar, replayed via `key` on every tab switch ---------- */
+
+.top-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 50%, var(--accent) 100%);
+  transform-origin: left;
+  animation: loaderSweep 0.5s ease-out forwards;
+  z-index: 100;
+}
+
+@keyframes loaderSweep {
+  0% { transform: scaleX(0); opacity: 1; }
+  70% { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(1); opacity: 0; }
+}
+
+/* ---------- category nav's own mobile toggle (still used by CategoryNav) ---------- */
+
+.mobile-nav-toggle {
+  display: none;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.chevron {
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+
+.chevron.open {
+  transform: rotate(180deg);
+}
+
+/* ---------- side navigation ---------- */
+
+.sidebar-toggle {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.sidebar-toggle:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.hamburger-bar {
+  display: block;
+  width: 20px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--text);
+}
+
+.sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.4);
+  z-index: 40;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 270px;
+  max-width: 82vw;
+  background: var(--surface);
+  box-shadow: var(--shadow-lg);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(-100%);
+  transition: transform 0.25s ease;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  font-weight: 700;
+  color: var(--text);
+}
+
+.sidebar-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.sidebar-nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.sidebar-link {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: none;
+  color: var(--text);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.sidebar-link:hover {
+  background: #f1f4f8;
+}
+
+.sidebar-link.active {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  color: white;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 0.75rem;
+  border-top: 1px solid var(--border);
+}
+
+.sidebar-logout {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: none;
+  color: #dc2626;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.sidebar-logout:hover {
+  background: #fee2e2;
+}
+
+/* ---------- tab content transition ---------- */
+
+.tab-panel {
+  animation: fadeSlideIn 0.35s ease;
+}
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes expandDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- shared panel / card styling ---------- */
+
+.managers {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.panel {
+  flex: 1 1 260px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.25s ease;
+}
+
+.panel:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.panel h2 {
+  margin-top: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.panel form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.panel input {
+  flex: 1;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Checkboxes (and any other non-text input) must never inherit the
+   text-input sizing above — `flex: 1` makes a checkbox stretch to fill
+   the row because flex-basis:0 wins over an explicit width in a flex
+   layout, which is what was pushing every filter checkbox's label to
+   the far edge of the panel instead of sitting next to it. */
+.panel input[type='checkbox'] {
+  flex: none;
+  width: auto;
+  padding: 0;
+  border: none;
+}
+
+.panel input:focus {
+  outline: none;
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.panel button {
+  padding: 0.5rem 1.1rem;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.panel button:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.panel button:active {
+  transform: translateY(0);
+}
+
+.tag-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.tag-list li {
+  padding: 0.35rem 0.5rem 0.35rem 0.7rem;
+  background: #f1f4f8;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: background 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.tag-list li:hover {
+  background: #eef2ff;
+}
+
+.tag-list-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+.attribute-edit-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.attribute-edit-row input[type='text'] {
+  flex: 1;
+  min-width: 120px;
+  padding: 0.35rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.attribute-edit-row .save-edit-btn {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  color: white;
+  border: none;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: none;
+  flex-shrink: 0;
+}
+
+.attribute-edit-row .save-edit-btn:hover {
+  transform: translateY(-1px);
+}
+
+.attribute-edit-row .cancel-edit-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: none;
+  flex-shrink: 0;
+}
+
+.attribute-edit-row .cancel-edit-btn:hover {
+  background: #f1f4f8;
+  transform: none;
+}
+
+.panel .delete-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  line-height: 1;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: none;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.panel .delete-btn:hover {
+  background: #fee2e2;
+  color: #b91c1c;
+  transform: none;
+}
+
+/* Kept in the layout (not removed from the DOM) purely to reserve its
+   column width — see AttributeManager.jsx for why. */
+.panel .delete-btn.is-hidden {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.panel .edit-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--primary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: none;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.panel .edit-btn:hover {
+  background: #eef2ff;
+  border-color: var(--primary-light);
+  transform: none;
+}
+
+.product-tile-actions .product-delete-btn {
+  margin-left: auto;
+}
+
+/* ---------- toast notifications ---------- */
+
+.toast {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: white;
+  box-shadow: var(--shadow-lg);
+  z-index: 200;
+  animation: toastIn 0.3s ease;
+  max-width: 320px;
+}
+
+.toast-success {
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+}
+
+.toast-error {
+  background: linear-gradient(135deg, #dc2626, #ef4444);
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.tab-content .panel {
+  max-width: 480px;
+}
+
+/* ---------- product form ---------- */
+
+.product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.product-form input,
+.product-form select {
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-form input:focus,
+.product-form select:focus {
+  outline: none;
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.attribute-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  border-top: 1px solid var(--border);
+  padding-top: 0.6rem;
+  margin-top: 0.2rem;
+}
+
+.attribute-rows label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.attribute-row {
+  display: flex;
+  gap: 0.4rem;
+  align-items: flex-start;
+}
+
+.attribute-row select,
+.attribute-row input {
+  flex: 1;
+}
+
+.attribute-row .image-attribute-input {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.image-attribute-input input[type='file'] {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.image-attribute-input input[type='file']::file-selector-button {
+  padding: 0.4rem 0.8rem;
+  margin-right: 0.6rem;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  color: white;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.image-attribute-input input[type='file']::file-selector-button:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.image-thumb-list {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.image-thumb {
+  position: relative;
+  width: 56px;
+  height: 56px;
+}
+
+.image-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+}
+
+.product-form .image-thumb .remove-image-btn {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ef4444;
+  color: white;
+  border: none;
+  font-size: 0.7rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-shadow: none;
+}
+
+.product-form .image-thumb .set-thumbnail-btn {
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: white;
+  color: #f59e0b;
+  border: 1px solid var(--border);
+  font-size: 0.7rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-shadow: var(--shadow-sm);
+}
+
+.product-form .image-thumb .set-thumbnail-btn:hover {
+  background: #fef3c7;
+  transform: none;
+}
+
+.image-thumb.is-thumbnail img {
+  border-color: var(--primary);
+  border-width: 2px;
+}
+
+.product-form .remove-row {
+  background: #f1f4f8;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  width: 2rem;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+  box-shadow: none;
+}
+
+.product-form .remove-row:hover {
+  background: #fee2e2;
+  color: #b91c1c;
+  transform: none;
+}
+
+.product-form .remove-row:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background: #f1f4f8;
+  color: var(--text-muted);
+}
+
+.product-form .add-row {
+  align-self: flex-start;
+  background: none;
+  color: var(--primary);
+  border: 1px dashed var(--primary-light);
+  font-size: 0.85rem;
+  padding: 0.35rem 0.7rem;
+  box-shadow: none;
+}
+
+.product-form .add-row:hover {
+  background: #eef2ff;
+}
+
+.product-form .add-row:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: none;
+}
+
+.form-actions {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 0.4rem;
+}
+
+.product-form .submit-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.product-form .submit-btn:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.product-form .cancel-edit-btn {
+  padding: 0.5rem 1.1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: none;
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.product-form .cancel-edit-btn:hover {
+  background: #f1f4f8;
+  transform: none;
+}
+
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.45);
+  border-top-color: white;
+  border-radius: 50%;
+  display: inline-block;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ---------- product list ---------- */
+
+.product-list-panel .empty {
+  color: #8a94a1;
+  font-size: 0.9rem;
+}
+
+.product-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.product-tile {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--surface);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.product-tile:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-light);
+  transform: translateY(-2px);
+}
+
+.product-tile-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #f1f4f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.product-tile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-tile-placeholder {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.product-tile-body {
+  padding: 0.7rem 0.8rem 0.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1;
+}
+
+.product-tile-body .badge {
+  align-self: flex-start;
+}
+
+.product-tile-name {
+  font-size: 0.95rem;
+  color: #111827;
+}
+
+.product-tile-price {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #4338ca;
+}
+
+.product-tile-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 0.8rem 0.75rem;
+}
+
+.badge {
+  background: #eef2ff;
+  color: #3730a3;
+  border-radius: 999px;
+  padding: 0.1rem 0.6rem;
+  font-size: 0.75rem;
+}
+
+.badge-green {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.badge-muted {
+  background: #f1f4f8;
+  color: var(--text-muted);
+}
+
+.badge-system {
+  background: #fef3c7;
+  color: #92400e;
+  text-transform: uppercase;
+  font-size: 0.65rem;
+  letter-spacing: 0.03em;
+  font-weight: 700;
+}
+
+/* ---------- system configuration ---------- */
+
+.system-config-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  max-width: 420px;
+}
+
+.system-config-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  width: 100%;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.system-config-form button:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* The native file input's browser-default "Choose File" button otherwise
+   looks like a stray OS control dropped next to the app's own styled
+   inputs and buttons — ::file-selector-button lets it match them. */
+.system-config-form input[type='file'] {
+  padding: 0.3rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.system-config-form input[type='file']::file-selector-button {
+  padding: 0.45rem 0.9rem;
+  margin-right: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  color: white;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.system-config-form input[type='file']::file-selector-button:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.logo-preview {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo-preview img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+.logo-preview button {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  box-shadow: none;
+}
+
+.logo-preview button:hover {
+  background: #f1f4f8;
+  transform: none;
+}
+
+.password-success {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #166534;
+}
+
+/* ---------- authentication ---------- */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: fadeIn 0.2s ease;
+}
+
+.modal-card {
+  width: 100%;
+  max-width: 360px;
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  padding: 1.5rem;
+}
+
+.modal-card h3 {
+  margin: 0 0 0.75rem;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Explicit here (duplicating .panel input/button) because .login-form
+   also renders standalone inside .modal-card, which isn't a .panel and so
+   wouldn't otherwise inherit any input/button styling at all. */
+.login-form input {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.login-form input:focus {
+  outline: none;
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.login-form button[type='submit'] {
+  padding: 0.55rem 1.1rem;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.login-form button[type='submit']:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.login-form button[type='submit']:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.login-form-heading {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.login-form-error {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #dc2626;
+}
+
+.login-form-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.login-form-actions button[type='submit'] {
+  flex: 1;
+}
+
+.login-form-cancel {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-weight: 600;
+  box-shadow: none;
+}
+
+.login-form-cancel:hover {
+  background: #f1f4f8;
+  transform: none;
+}
+
+/* ---------- category manager ---------- */
+
+.category-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.category-form input {
+  flex: 1;
+  min-width: 140px;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.category-form select {
+  flex: 1;
+  min-width: 160px;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.attribute-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.attribute-form input {
+  flex: 1;
+  min-width: 140px;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.attribute-form select {
+  flex: 1;
+  min-width: 180px;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.filterable-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.filterable-checkbox input[type='checkbox'] {
+  accent-color: var(--primary);
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+
+.filterable-checkbox input[type='checkbox']:disabled {
+  cursor: not-allowed;
+}
+
+.boolean-attribute-input {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.boolean-attribute-input input[type='checkbox'] {
+  accent-color: var(--primary);
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+
+.category-tree {
+  list-style: none;
+  margin: 0.3rem 0 0;
+  padding-left: 1rem;
+}
+
+.category-tree span {
+  font-size: 0.9rem;
+  color: #374151;
+  display: inline-block;
+  padding: 0.15rem 0.4rem;
+}
+
+.category-tree-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 6px;
+  transition: background 0.15s ease, opacity 0.15s ease;
+}
+
+/* The category name should always start immediately after the drag handle
+   and consume the remaining space, with the delete button landing at the
+   far right naturally — `justify-content: space-between` used to do this
+   by dividing space between exactly 3 unevenly-sized children, which
+   visually reads as the name floating somewhere near the middle instead
+   of being left-aligned like every other list in the app. */
+.category-tree-row > span:not(.drag-handle),
+.category-tree-row > .filter-node {
+  flex: 1;
+  text-align: left;
+}
+
+.category-tree-row[draggable='true'] {
+  cursor: grab;
+  /* Without this, starting the drag gesture on the category name text
+     makes the browser begin a text-selection drag instead of firing our
+     dragstart handler — the drag would only "take" if you happened to
+     grab the narrow drag-handle icon exactly. */
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: element;
+}
+
+.category-tree-row[draggable='true']:active {
+  cursor: grabbing;
+}
+
+.category-tree-row.dragging {
+  opacity: 0.4;
+}
+
+.category-tree-row.dragging.outdent {
+  opacity: 0.7;
+  box-shadow: inset 3px 0 0 var(--primary);
+  background: #eef2ff;
+}
+
+.category-tree-row.drop-target {
+  background: #eef2ff;
+  outline: 2px dashed var(--primary);
+  outline-offset: -2px;
+}
+
+.category-tree-row.drop-before::before,
+.category-tree-row.drop-after::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--primary);
+}
+
+.category-tree-row.drop-before::before {
+  top: -2px;
+}
+
+.category-tree-row.drop-after::after {
+  bottom: -2px;
+}
+
+.drag-handle {
+  color: #9ca3af;
+  font-size: 0.8rem;
+  line-height: 1;
+  padding: 0 0.2rem;
+  cursor: grab;
+}
+
+.dnd-hint {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin: 0.5rem 0 0;
+}
+
+
+/* generic clickable tree node, reused by the mobile category picker */
+.filter-node {
+  background: none;
+  border: none;
+  padding: 0.3rem 0.5rem;
+  text-align: left;
+  font-size: 0.9rem;
+  color: #374151;
+  cursor: pointer;
+  border-radius: 6px;
+  width: 100%;
+  display: block;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.filter-node:hover {
+  background: #f1f4f8;
+}
+
+.filter-node.active {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  color: white;
+}
+
+/* ---------- catalogue view (Products tab) ---------- */
+
+.catalogue-view {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.catalogue-body {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.catalogue-body .product-list-panel {
+  flex: 3 1 400px;
+  max-width: none;
+}
+
+/* ---------- filters panel (Brand + dynamic attribute filters) ---------- */
+
+.filters-panel {
+  flex: 1 1 240px;
+  max-width: 280px;
+}
+
+.filters-heading {
+  margin-top: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.filters-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.filter-group:last-child {
+  margin-bottom: 0;
+}
+
+.filter-group-label {
+  display: block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.filter-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.filter-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.88rem;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.filter-checkbox input[type='checkbox'] {
+  accent-color: var(--primary);
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+
+.filter-empty {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.filter-range {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.filter-range input {
+  width: 0;
+  flex: 1;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.filter-range span {
+  color: var(--text-muted);
+}
+
+/* ---------- category + brand top nav ---------- */
+
+.catalogue-nav {
+  width: 100%;
+}
+
+.catalogue-nav-body {
+  display: flex;
+  flex-wrap: wrap;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.nav-group {
+  display: flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.nav-pills {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0 0.5rem;
+}
+
+.nav-pill-wrapper {
+  position: relative;
+}
+
+.nav-pill {
+  position: relative;
+  padding: 1rem 1.15rem;
+  border: none;
+  background: none;
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.nav-pill::after {
+  content: '';
+  position: absolute;
+  left: 1.15rem;
+  right: 1.15rem;
+  bottom: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: transparent;
+  transition: background 0.2s ease;
+}
+
+.nav-pill:hover {
+  color: var(--primary);
+}
+
+.nav-pill:hover::after {
+  background: var(--primary-light);
+}
+
+.nav-pill.active {
+  color: var(--primary);
+}
+
+.nav-pill.active::after {
+  background: var(--primary);
+}
+
+.nav-flyout {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 190px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: var(--shadow-lg);
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  z-index: 20;
+}
+
+.nav-pill-wrapper:hover .nav-flyout,
+.nav-pill-wrapper:focus-within .nav-flyout {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.nav-flyout-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-flyout-list .nav-flyout-list {
+  padding-left: 0.75rem;
+}
+
+.dropdown-link {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.85rem;
+  color: var(--text);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.dropdown-link:hover {
+  background: #eef2ff;
+  color: var(--primary);
+}
+
+.dropdown-link.active {
+  background: var(--primary);
+  color: white;
+}
+
+.nav-tree-mobile {
+  display: none;
+  width: 100%;
+  padding: 0.5rem 1rem 1rem;
+}
+
+/* ---------- image attribute editing (ProductForm) ---------- */
+
+.image-hint {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.thumbnail-tag {
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  background: var(--primary);
+  color: white;
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  padding: 0.1rem 0.4rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+/* ---------- product detail page (PDP) ---------- */
+
+.panel .pdp-back {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 1.25rem;
+  box-shadow: none;
+}
+
+.panel .pdp-back:hover {
+  text-decoration: underline;
+  transform: none;
+}
+
+/* The generic .tab-content .panel rule (two classes: .tab-content .panel)
+   caps every panel at 480px, which is right for the narrow single-column
+   forms (Add Product, Categories, Attributes) but strands the PDP's
+   two-column gallery+info layout in a cramped box on the left with a
+   large empty gap beside it on anything wider than a phone. `.pdp` alone
+   has lower specificity than `.tab-content .panel` (one class vs. two) and
+   silently loses regardless of source order — matching it with `.panel.pdp`
+   (also two classes) is what actually lets this override take effect. */
+.panel.pdp {
+  max-width: 960px;
+}
+
+.pdp-layout {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.pdp-gallery {
+  flex: 1 1 360px;
+  max-width: 480px;
+}
+
+.pdp-info {
+  flex: 1 1 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.pdp-info .badge {
+  align-self: flex-start;
+}
+
+.pdp-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #111827;
+}
+
+.pdp-brand {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.pdp-price-block {
+  margin: 0.3rem 0 0;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.pdp-price-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.pdp-price-value {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.pdp-specs {
+  margin: 0.5rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.pdp-spec-row {
+  display: flex;
+  gap: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+
+.pdp-spec-row dt {
+  /* A fixed flex-basis (not min-width) so every row's label column is
+     exactly the same width — a longer label like "Warranty (Years)" used
+     to grow past a min-width and push just that row's value out of line
+     with the others. flex-shrink: 0 keeps it from being compressed. */
+  flex: 0 0 140px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.pdp-spec-row dd {
+  flex: 1;
+  margin: 0;
+  color: #1f2933;
+}
+
+.pdp-actions {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.pdp-actions .pdp-edit-btn,
+.pdp-actions .pdp-delete-btn {
+  padding: 0.5rem 1.1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.pdp-actions .pdp-delete-btn {
+  background: none;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  box-shadow: none;
+}
+
+.pdp-actions .pdp-delete-btn:hover {
+  background: #fee2e2;
+  transform: none;
+}
+
+/* ---------- image slider ---------- */
+
+.image-slider {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.image-slider-main {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #f1f4f8;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-slider-main img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.pdp-image-placeholder {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #f1f4f8;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.image-slider .slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--text);
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-slider .slider-arrow:hover {
+  background: white;
+  transform: translateY(-50%);
+}
+
+.slider-prev {
+  left: 0.6rem;
+}
+
+.slider-next {
+  right: 0.6rem;
+}
+
+.slider-thumbs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.image-slider .slider-thumb {
+  width: 52px;
+  height: 52px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  padding: 0;
+  cursor: pointer;
+  background: none;
+  box-shadow: none;
+}
+
+.slider-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-slider .slider-thumb.active {
+  border-color: var(--primary);
+}
+
+/* ---------- responsive: collapse into expandable panels on small screens ---------- */
+
+@media (max-width: 720px) {
+  .mobile-nav-toggle {
+    display: flex;
+  }
+
+  .catalogue-nav-body {
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    margin-top: 0.6rem;
+  }
+
+  .catalogue-nav-body.open {
+    display: flex;
+    animation: expandDown 0.25s ease;
+  }
+
+  .nav-pills-desktop {
+    display: none;
+  }
+
+  .nav-tree-mobile {
+    display: block;
+  }
+
+  .filters-heading {
+    display: none;
+  }
+
+  .filters-body {
+    display: none;
+    margin-top: 0.6rem;
+  }
+
+  .filters-body.open {
+    display: flex;
+    animation: expandDown 0.25s ease;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+}

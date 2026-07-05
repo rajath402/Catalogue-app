@@ -1,0 +1,46 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #4f46e5;
+  --primary-dark: #4338ca;
+  --primary-light: #6366f1;
+  --accent: #ec4899;
+  --surface: #ffffff;
+  --text: #1f2937;
+  --text-muted: #6b7280;
+  --border: #e5e7eb;
+  --radius: 12px;
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 6px 20px rgba(79, 70, 229, 0.12);
+  --shadow-lg: 0 16px 36px rgba(79, 70, 229, 0.18);
+
+  /* Two-font system: Plus Jakarta Sans for headings/emphasis gives the
+     brand a bit of distinctive character, Inter carries body copy and UI
+     controls since it's built for legibility at small sizes. Both fall
+     back to the same system stack so the app never blocks on the font
+     request. */
+  --font-heading: 'Plus Jakarta Sans', -apple-system, 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Inter', -apple-system, 'Segoe UI', system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  background:
+    radial-gradient(circle at 8% 8%, rgba(99, 102, 241, 0.14), transparent 40%),
+    radial-gradient(circle at 92% 15%, rgba(236, 72, 153, 0.12), transparent 40%),
+    radial-gradient(circle at 50% 100%, rgba(56, 189, 248, 0.12), transparent 45%),
+    linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+  background-attachment: fixed;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.01em;
+}
