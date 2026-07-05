@@ -13,6 +13,12 @@ dist
 dist-ssr
 *.local
 
+# Runtime data: product/category CSVs and the password hash/seed. These
+# are generated on first run (see server/csvStore.js, server/auth.js) and
+# belong to the deployment's persistent volume, not source control — the
+# password hash in particular should never end up in git history.
+server/data/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
